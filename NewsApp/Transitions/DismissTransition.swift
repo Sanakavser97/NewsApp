@@ -26,9 +26,9 @@ class DismissTransition: NSObject, UIViewControllerAnimatedTransitioning {
             return self.animator!
         }
         
-        let fromViewController = transitionContext.viewController(forKey: .from)!
+        let fromViewController = transitionContext.viewController(forKey: .from) ?? UIViewController()
         
-        let fromView = fromViewController.view!
+        let fromView = fromViewController.view ?? UIView()
         
         
         let animator = UIViewPropertyAnimator(duration: self.transitionDuration(using: transitionContext), curve: .easeInOut) {

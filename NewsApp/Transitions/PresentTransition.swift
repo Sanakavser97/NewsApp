@@ -29,10 +29,11 @@ class PresentTransition: NSObject, UIViewControllerAnimatedTransitioning {
 
         let container = transitionContext.containerView
         
-        let fromViewController = transitionContext.viewController(forKey: .from)!
+        let fromViewController = transitionContext.viewController(forKey: .from) ?? UIViewController()
         
-        let fromView = fromViewController.view!
-        let toView = transitionContext.viewController(forKey: .to)!.view!
+        let fromView = fromViewController.view ?? UIView()
+        let toViewController = transitionContext.viewController(forKey: .to) ?? UIViewController()
+        let toView = toViewController.view ?? UIView()
         
         toView.frame = CGRect(x: fromView.frame.origin.x, y:fromView.frame.origin.y, width: fromView.frame.height, height: fromView.frame.width)
         container.addSubview(toView)
