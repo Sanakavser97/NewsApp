@@ -63,3 +63,19 @@ extension UIView {
             }
         }
 }
+
+
+extension UIView {
+    func setCenterOfRotation() {
+        var position = layer.position
+
+        position.x -= (frame.size.width * layer.anchorPoint.x)
+        position.x += 0
+
+        position.y -= (frame.size.height * layer.anchorPoint.y)
+        position.y += 0
+
+        layer.position = position
+        layer.anchorPoint = CGPoint(x: 0, y: 0)
+    }
+}

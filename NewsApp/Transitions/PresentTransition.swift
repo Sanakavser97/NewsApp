@@ -35,13 +35,16 @@ class PresentTransition: NSObject, UIViewControllerAnimatedTransitioning {
         let toViewController = transitionContext.viewController(forKey: .to) ?? UIViewController()
         let toView = toViewController.view ?? UIView()
         
-        toView.frame = CGRect(x: fromView.frame.origin.x, y:fromView.frame.origin.y, width: fromView.frame.height, height: fromView.frame.width)
+        toView.frame = fromView.frame
+        toView.setCenterOfRotation()
+        toView.transform = CGAffineTransform(rotationAngle: .pi/2)
+        
         container.addSubview(toView)
-    
+        
 
         let animator = UIViewPropertyAnimator(duration: self.transitionDuration(using: transitionContext), curve: .easeInOut) {
-            
-            toView.frame = fromView.frame
+
+            toView.transform = CGAffineTransform(rotationAngle: 0)
             
         }
 

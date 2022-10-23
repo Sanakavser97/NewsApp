@@ -29,11 +29,11 @@ class DismissTransition: NSObject, UIViewControllerAnimatedTransitioning {
         let fromViewController = transitionContext.viewController(forKey: .from) ?? UIViewController()
         
         let fromView = fromViewController.view ?? UIView()
-        
+        fromView.setCenterOfRotation()
         
         let animator = UIViewPropertyAnimator(duration: self.transitionDuration(using: transitionContext), curve: .easeInOut) {
+            fromView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
             
-            fromView.frame = CGRect(x: fromView.frame.origin.x, y:fromView.frame.origin.y, width: fromView.frame.height, height: fromView.frame.width)
         }
         
         animator.addCompletion { _ in
@@ -50,3 +50,5 @@ class DismissTransition: NSObject, UIViewControllerAnimatedTransitioning {
         self.animator = nil
     }
 }
+
+

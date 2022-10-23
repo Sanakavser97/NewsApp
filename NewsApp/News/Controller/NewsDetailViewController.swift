@@ -25,50 +25,55 @@ class NewsDetailViewController: UIViewController {
     var viewModel: NewsDetailViewModel?
     var newsImage: UIImage?
     var dismissedView = false
+    var customTopViewFrame: CGRect?
+    var customBottomViewFrame: CGRect?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-       setLabels()
+        setLabels()
         
     }
     
     func setUI(){
         newsImageView.layer.cornerRadius = 10
         imageBorderView.setCustomShadow(cornerRadius: 10, shadowOpacity: 0.5, offset: CGSize(width: 0.0, height: 4.0), shadowRadius: 4)
-
+        customTopViewFrame = customTopView.frame
+        customBottomViewFrame = customBottomView.frame
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if !dismissedView{
+        if !dismissedView {
             customAnimateOpen()
         }
-        
     }
     
-   
+    
     func customAnimateOpen(){
         UIView.animate(withDuration: 2.0, delay: 0.5, options: .curveEaseOut, animations: {
-          var topFrame = self.customTopView.frame
+            var topFrame = self.customTopView.frame
             topFrame.origin.y -= topFrame.size.height * 0.6
             topFrame.origin.x -= topFrame.size.width * 0.5
-          
-          var bottomFrame = self.customBottomView.frame
-          bottomFrame.origin.y += bottomFrame.size.height * 0.65
+            
+            var bottomFrame = self.customBottomView.frame
+            bottomFrame.origin.y += bottomFrame.size.height * 0.65
             bottomFrame.origin.x += bottomFrame.size.width * 0.5
-          
-          self.customTopView.frame = topFrame
-          self.customBottomView.frame = bottomFrame
+            
+            self.customTopView.frame = topFrame
+            self.customBottomView.frame = bottomFrame
+            
+            
         }, completion: { finished in
-          
+            
         })
+        
     }
 
 
@@ -85,6 +90,8 @@ class NewsDetailViewController: UIViewController {
     
     @IBAction func dismissButtonTapped(_ sender: Any) {
         dismissedView = true
+        customTopView.removeFromSuperview()
+        customBottomView.removeFromSuperview()
         dismiss(animated: true, completion: nil)
     }
     
